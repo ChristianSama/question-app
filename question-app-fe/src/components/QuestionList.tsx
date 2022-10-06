@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Question } from "../types";
 
 const QuestionList = () => {
@@ -12,6 +12,15 @@ const QuestionList = () => {
       });
   }, []);
 
+  const handleDelete = async (id: number) => {
+    await fetch(`http://localhost:8000/api/questions/${id}/`, {
+        method: 'DELETE'
+      }
+    )
+    const newQuestions = [...questions].filter(q => q.pk !== id)
+    setQuestions(newQuestions)
+  }
+
   return (
     <>
       {questions.map((question) => (
@@ -22,6 +31,7 @@ const QuestionList = () => {
               <li key={choice.pk}>{choice.text}</li>  
             ))}
           </ol>
+          <button onClick={() => handleDelete(question.pk)}>DELETE</button>
         </div>
       ))}
     </>
