@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-interface Choice {
-  pk: number,
-  text: string,
-}
-
-interface Question {
-  pk: number;
-  text: string;
-  choices: Choice[];
-}
+import { Question } from "../types";
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
